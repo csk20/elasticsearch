@@ -65,4 +65,8 @@ init.sh
 set -e
 
 curl -vvv -u user:password -XPUT $("hostname"):9200/employee_index
-curl -vvv -u user:password -XPUT $("hostname"):9200/employee_index/_setting  -H ''
+
+curl -vvv -u user:password -XPUT $("hostname"):9200/employee_index/_setting  -H 'Content-type ---'  -d '{"index":{"max_result_window":1000000}}'
+
+
+curl -vvv -u user:password -XPUT $("hostname"):9200/employee_index/_setting  -H 'Content-type ---'  -d '{"index":{"max_terms_count":1000000}}'
