@@ -34,3 +34,35 @@ else
    echo "es stoped"
 fi   
    
+
+show-status.sh
+#!/bin/sh
+set -e
+count ='ps -ef | grep $USER |grep es_health| grep java | wc -l | awk 'print$1''
+if[$count -eq 0]; then
+   echo -n "es health is not running"
+else  
+   echo "es health is running"
+fi 
+
+count ='ps -ef | grep $USER |grep elasticsearch| grep java | wc -l | awk 'print$1''
+if[$count -eq 0]; then
+   echo -n "es is not running"
+else  
+   echo "es  is not running"
+fi 
+
+
+es_health.sh
+#!/bin/sh
+set -e
+CMD=./elasticsearch
+
+
+init.sh 
+#To create index & max result  window size,max term count
+#!/bin/sh
+set -e
+
+curl -vvv -u user:password -XPUT $("hostname"):9200/employee_index
+curl -vvv -u user:password -XPUT $("hostname"):9200/employee_index/_setting  -H ''
