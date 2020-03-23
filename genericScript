@@ -1,0 +1,10 @@
+#!/bin/sh
+set -e
+
+BASEDIR=$(dirname="$0")
+echo "starting from base Dir $BASEDIR"
+
+cd $BASEDIR
+
+. ../../apps/detectPath.sh
+. ../../apps/detectEnv.sh
