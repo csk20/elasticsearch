@@ -1,0 +1,36 @@
+start.sh
+#!/bin/sh
+set -e
+count ='ps -ef | grep es_health | grep bin | wc -l | awk 'print$1''
+
+if[$count -eq 0]; then
+   echo -n "starting es.."
+# /home/es/es/los/clusterName.log   --cluster.name =clusterNode
+   CONSOLE_LOG_FILE=path to log foldrt/clusterName.log 
+   nohup ./es_health.sh >$CONSOLE_LOG_FILE 2>&1 &
+   isStarted= 'tail -n 500 $CONSOLE_LOF_FILE | grep -i Started| wc -l'
+   until [$isStarted -eq 1]
+   do
+    isStarted= 'tail -n 500 $CONSOLE_LOF_FILE | grep -i Started| wc -l'
+    echo -n "."
+    sleep 1
+   done
+   echo -e  "\n Es started"
+   exit 0
+else
+   echo "Es is running"
+   exit 1
+fi   
+
+
+stop.sh
+#!/bin/sh
+set -e
+count ='ps -ef | grep $USER |grep elasticsearch| grep java | wc -l | awk 'print$1''
+if[$count -eq 0]; then
+   echo -n "es is not running"
+else  
+   ps -ef | grep $USER |grep elasticsearch| grep java | awk 'print$2' | xargs - kill {}
+   echo "es stoped"
+fi   
+   
